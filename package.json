@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack --display-error-details",
-    "test": "karma start"
+    "test": "karma start",
+    "postinstall": "typings install"
   },
   "keywords": [
     "web workers",
