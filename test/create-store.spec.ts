@@ -2,11 +2,11 @@ import { createStore } from '../src';
 
 describe('Create Store', () => {
   it('should create a store', () => {
-    var store = createStore(function (state, action) {
+    var store = createStore((state, action) => {
       return action.state;
     });
 
-    store.subscribe(function (state) {
+    store.subscribe(state => {
       expect(state).toBe('Hello World');
     });
 
