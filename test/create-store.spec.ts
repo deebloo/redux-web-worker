@@ -11,7 +11,8 @@ describe('Create Store', () => {
     });
 
     store.dispatch({
-      state: 'Hello World'
+      type: 'MY_ACTION',
+      data: 'Hello World'
     });
   })
 });

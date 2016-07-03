@@ -2,15 +2,17 @@
 export function createWorker(fn: Function, initialState: any) {
   var blob: Blob = new Blob([`
     self.state = ${initialState};
+
     self.cb = ${fn.toString()};
+
     self.onmessage = function () {
       if (e.data.type === 'GET_STATE') {
-        scope.postMessage('hello');
+        self.postMessage(self.state);
       } else {
-        self.state = self.cb(scope.state, e.data);
+        self.state = self.cb(self.state, e.data);
 
         self.postMessage({
-          state: scope.state,
+          state: self.state,
           action: e.data
         });
       }
