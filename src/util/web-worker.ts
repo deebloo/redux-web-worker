@@ -5,16 +5,13 @@ export function createWorker(fn: Function, initialState: any) {
 
     self.cb = ${fn.toString()};
 
-    self.onmessage = function () {
+    self.onmessage = function (e) {
       if (e.data.type === 'GET_STATE') {
         self.postMessage(self.state);
       } else {
         self.state = self.cb(self.state, e.data);
 
-        self.postMessage({
-          state: self.state,
-          action: e.data
-        });
+        self.postMessage(self.state);
       }
     }
   `], { type: 'text/javascript' });
