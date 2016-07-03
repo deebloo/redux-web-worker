@@ -1,4 +1,4 @@
-import { createWorker } from '../util';
+import { createWorker } from './store.worker';
 import { Action } from './action.interface';
 
 export class Store {
