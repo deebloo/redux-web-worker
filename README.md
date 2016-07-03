@@ -15,7 +15,7 @@ var store = createStore((state, action) => {
   }
 }, 0);
 
-store.getState(function (state) {
+store.getState(state => {
   console.log(state) // 0
 });
 
