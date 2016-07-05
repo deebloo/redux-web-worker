@@ -1,7 +1,7 @@
 import { createStore } from '../src';
 
 describe('Create Store', () => {
-  it('should create a store', () => {
+  it('should create a store', done => {
     var store = createStore((state, action) => {
       switch(action.type) {
         case 'INCREMENT':
@@ -15,18 +15,32 @@ describe('Create Store', () => {
 
     store.subscribe(state => {
       expect(state).toBe(1);
+
+      done();
     });
 
     store.dispatch({ type: 'INCREMENT' });
   });
 
-  it('should get the current state', () => {
+  it('should get the current state', done => {
     var store = createStore((state, action) => {
       return state;
     }, 'Hello World');
 
     store.getState(function (state) {
       expect(state).toBe('Hello World');
+
+      done();
     });
+  });
+
+  it('should unsubscribe from store', () => {
+    var store = createStore((state, action) => {
+      return state;
+    }, 'Hello World');
+
+    var subscription = store.subscribe(state => {});
+
+    subscription.unsubScribe();
   });
 });

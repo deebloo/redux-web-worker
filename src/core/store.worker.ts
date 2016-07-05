@@ -1,4 +1,4 @@
-import { actions } from './config';
+import { actions } from './actions';
 
 // create a web worker tailored for state management
 export function createWorker(fn: Function, initialState: any) {
@@ -16,7 +16,10 @@ export function createWorker(fn: Function, initialState: any) {
         self.state = self.reducer(self.state, e.data);
       }
 
-      self.postMessage(self.state);
+      self.postMessage({
+        type: e.data.type,
+        data: self.state
+      });
     }
   `], { type: 'text/javascript' });
 

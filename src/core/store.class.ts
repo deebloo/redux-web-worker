@@ -1,6 +1,6 @@
 import { createWorker } from './store.worker';
 import { Action } from './action.interface';
-import { actions } from './config';
+import { actions } from './actions';
 
 export class Store {
   private store: Worker;
@@ -11,10 +11,22 @@ export class Store {
 
   // subscribe to changes to the store.
   // the web worker acts as the dispatcher
-  subscribe(fn: Function): Store {
-    this.store.addEventListener('message', e => fn(e.data));
+  subscribe(fn: Function) {
+    const store = this.store;
 
-    return this;
+    store.addEventListener('message', handleSubscription);
+
+    function handleSubscription(e) {
+      if(e.data.type !== actions.GET_STATE) {
+        fn(e.data.data);
+      }
+    }
+
+    return {
+      unsubScribe() {
+        (<any>store).removeEventListener(handleSubscription);
+      }
+    };
   }
 
   // dispatch and action to the store
@@ -26,17 +38,18 @@ export class Store {
   }
 
   // Get the current state of the store
+  // this is just a wrapper for a dispatch
   // uses special reserved action
   getState(fn: Function): Store {
-    this.store.onmessage = e => {
-      fn(e.data);
+    this.store.addEventListener('message', handleOnMessage.bind(this));
 
-      this.store.onmessage = undefined;
-    };
+    function handleOnMessage(e?: any): any {
+      fn(e.data.data);
 
-    this.store.postMessage({
-      type: actions.GET_STATE
-    });
+      this.store.removeEventListener(handleOnMessage);
+    }
+
+    this.dispatch({ type: actions.GET_STATE });
 
     return this;
   }
