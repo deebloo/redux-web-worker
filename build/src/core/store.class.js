@@ -17,7 +17,7 @@ var Store = (function () {
         }
         return {
             unsubScribe: function () {
-                store.removeEventListener(handleSubscription);
+                store.removeEventListener('message', handleSubscription);
             }
         };
     };
@@ -34,7 +34,7 @@ var Store = (function () {
         this.store.addEventListener('message', handleOnMessage.bind(this));
         function handleOnMessage(e) {
             fn(e.data.data);
-            this.store.removeEventListener(handleOnMessage);
+            this.store.removeEventListener('message', handleOnMessage);
         }
         this.dispatch({ type: actions_1.actions.GET_STATE });
         return this;

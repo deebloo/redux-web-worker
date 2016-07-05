@@ -24,7 +24,7 @@ export class Store {
 
     return {
       unsubScribe() {
-        (<any>store).removeEventListener(handleSubscription);
+        store.removeEventListener('message', handleSubscription);
       }
     };
   }
@@ -46,7 +46,7 @@ export class Store {
     function handleOnMessage(e?: any): any {
       fn(e.data.data);
 
-      this.store.removeEventListener(handleOnMessage);
+      this.store.removeEventListener('message', handleOnMessage);
     }
 
     this.dispatch({ type: actions.GET_STATE });
