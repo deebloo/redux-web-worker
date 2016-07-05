@@ -4,10 +4,10 @@
   "description": "A redux implementation with web workers",
   "main": "build/index.js",
   "scripts": {
-    "build": "npm run global-dev && npm run global-min && npm run es2015",
+    "build": "npm run global-dev && npm run global-min && npm run commonjs",
     "global-min": "NODE_ENV=prod webpack",
     "global-dev": "NODE_ENV=dev webpack",
-    "es2015": "tsc --outDir build/",
+    "commonjs": "tsc --outDir build/",
     "release": "npm run build && npm publish",
     "test": "karma start",
     "postinstall": "typings install"
@@ -18,7 +18,7 @@
     "state managment"
   ],
   "files": [
-    "build/",
+    "build/src",
     "bundles/"
   ],
   "repository": {

@@ -1,7 +1,14 @@
 "use strict";
 var src_1 = require('../src');
 describe('Create Store', function () {
-    it('should create a store', function (done) {
+    it('should create a store and have an initial state', function (done) {
+        var store = src_1.createStore(function (state, action) { }, 'Hello World');
+        store.getState(function (state) {
+            expect(state).toBe('Hello World');
+            done();
+        });
+    });
+    it('should increment state by 1', function (done) {
         var store = src_1.createStore(function (state, action) {
             switch (action.type) {
                 case 'INCREMENT':
@@ -18,19 +25,10 @@ describe('Create Store', function () {
         });
         store.dispatch({ type: 'INCREMENT' });
     });
-    it('should get the current state', function (done) {
-        var store = src_1.createStore(function (state, action) {
-            return state;
-        }, 'Hello World');
-        store.getState(function (state) {
-            expect(state).toBe('Hello World');
-            done();
-        });
-    });
     it('should unsubscribe from store', function () {
         var store = src_1.createStore(function (state, action) {
             return state;
-        }, 'Hello World');
+        });
         var subscription = store.subscribe(function (state) { });
         subscription.unsubScribe();
     });

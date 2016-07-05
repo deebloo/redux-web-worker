@@ -81,16 +81,17 @@ var Rw =
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var actions_1 = __webpack_require__(4);
+	var consts_1 = __webpack_require__(4);
 	// create a web worker tailored for state management
 	function createWorker(fn, initialState) {
 	    // create boilerplate worker
 	    // store default state
 	    // manages get state
 	    // assigns reducer
-	    var blob = new Blob([("\n    self.state = " + JSON.stringify(initialState) + ";\n\n    self.reducer = " + fn.toString() + ";\n\n    self.onmessage = function (e) {\n      if (e.data.type !== " + JSON.stringify(actions_1.actions.GET_STATE) + ") {\n        self.state = self.reducer(self.state, e.data);\n      }\n\n      self.postMessage({\n        type: e.data.type,\n        data: self.state\n      });\n    }\n  ")], { type: 'text/javascript' });
+	    var blob = new Blob([("\n    self.state = " + JSON.stringify(initialState) + ";\n    self.reducer = " + fn.toString() + ";\n    self.onmessage = function (e) {\n      if (e.data.type !== " + JSON.stringify(consts_1.actions.GET_STATE) + ") {\n        self.state = self.reducer(self.state, e.data);\n      }\n\n      self.postMessage({\n        type: e.data.type,\n        data: self.state\n      });\n    }\n  ")], { type: 'text/javascript' });
 	    var url = URL.createObjectURL(blob);
 	    var worker = new Worker(url);
+	    // revoke the object url since we don't need it anymore
 	    URL.revokeObjectURL(url);
 	    return worker;
 	}
@@ -105,6 +106,9 @@ var Rw =
 	exports.actions = {
 	    GET_STATE: 'GET_STATE'
 	};
+	exports.events = {
+	    MESSAGE: 'message'
+	};
 
 
 /***/ },
@@ -113,7 +117,7 @@ var Rw =
 
 	"use strict";
 	var store_worker_1 = __webpack_require__(3);
-	var actions_1 = __webpack_require__(4);
+	var consts_1 = __webpack_require__(4);
 	var Store = (function () {
 	    function Store(fn, initialState) {
 	        this.store = store_worker_1.createWorker(fn, initialState);
@@ -122,17 +126,21 @@ var Rw =
 	    // the web worker acts as the dispatcher
 	    Store.prototype.subscribe = function (fn) {
 	        var store = this.store;
-	        store.addEventListener('message', handleSubscription);
+	        store.addEventListener(consts_1.events.MESSAGE, handleSubscription);
 	        function handleSubscription(e) {
-	            if (e.data.type !== actions_1.actions.GET_STATE) {
+	            if (e.data.type !== consts_1.actions.GET_STATE) {
 	                fn(e.data.data);
 	            }
 	        }
 	        return {
 	            unsubScribe: function () {
-	                store.removeEventListener('message', handleSubscription);
+	                store.removeEventListener(consts_1.events.MESSAGE, handleSubscription);
 	            }
 	        };
+	    };
+	    // terminate the web worker
+	    Store.prototype.destroy = function () {
+	        this.store.terminate();
 	    };
 	    // dispatch and action to the store
 	    // posts a message to the web worker
@@ -144,12 +152,12 @@ var Rw =
 	    // this is just a wrapper for a dispatch
 	    // uses special reserved action
 	    Store.prototype.getState = function (fn) {
-	        this.store.addEventListener('message', handleOnMessage.bind(this));
+	        this.store.addEventListener(consts_1.events.MESSAGE, handleOnMessage.bind(this));
 	        function handleOnMessage(e) {
 	            fn(e.data.data);
-	            this.store.removeEventListener('message', handleOnMessage);
+	            this.store.removeEventListener(consts_1.events.MESSAGE, handleOnMessage);
 	        }
-	        this.dispatch({ type: actions_1.actions.GET_STATE });
+	        this.dispatch({ type: consts_1.actions.GET_STATE });
 	        return this;
 	    };
 	    return Store;

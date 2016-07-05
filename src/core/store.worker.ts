@@ -1,4 +1,4 @@
-import { actions } from './actions';
+import { actions } from './consts';
 
 // create a web worker tailored for state management
 export function createWorker(fn: Function, initialState: any): Worker {
@@ -8,9 +8,7 @@ export function createWorker(fn: Function, initialState: any): Worker {
   // assigns reducer
   var blob: Blob = new Blob([`
     self.state = ${JSON.stringify(initialState)};
-
     self.reducer = ${fn.toString()};
-
     self.onmessage = function (e) {
       if (e.data.type !== ${JSON.stringify(actions.GET_STATE)}) {
         self.state = self.reducer(self.state, e.data);
@@ -26,6 +24,7 @@ export function createWorker(fn: Function, initialState: any): Worker {
   var url: string = URL.createObjectURL(blob);
   var worker: Worker = new Worker(url);
 
+  // revoke the object url since we don't need it anymore
   URL.revokeObjectURL(url);
 
   return worker;
