@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "npm run global && npm run es2015",
-    "global": "webpack",
+    "global": "webpack --optimize-minimize",
     "es2015": "tsc --outDir build/",
     "release": "npm run build && npm publish",
     "test": "karma start",
