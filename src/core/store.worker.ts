@@ -1,3 +1,5 @@
+import { actions } from './config';
+
 // create a web worker tailored for state management
 export function createWorker(fn: Function, initialState: any) {
   // create boilerplate worker
@@ -10,7 +12,7 @@ export function createWorker(fn: Function, initialState: any) {
     self.reducer = ${fn.toString()};
 
     self.onmessage = function (e) {
-      if (e.data.type !== 'GET_STATE') {
+      if (e.data.type !== ${actions.GET_STATE}) {
         self.state = self.reducer(self.state, e.data);
       }
 

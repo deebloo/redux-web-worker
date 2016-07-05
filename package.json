@@ -2,9 +2,11 @@
   "name": "redux-worker",
   "version": "1.0.0",
   "description": "A redux implementation with web workers",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
-    "start": "webpack --display-error-details",
+    "build": "npm run global && npm run es2015",
+    "global": "webpack --optimize-minimize",
+    "es2015": "tsc --outDir build/",
     "test": "karma start",
     "postinstall": "typings install"
   },

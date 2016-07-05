@@ -1,7 +1,9 @@
 module.exports = {
   entry: './src',
   output: {
-    filename: 'bundle.js'
+    libraryTarget: 'var',
+    library: 'Rw',
+    filename: 'bundles/bundle.min.js'
   },
   resolve: {
     extensions: ['', '.ts', '.js']
