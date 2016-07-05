@@ -18,8 +18,8 @@
     "state managment"
   ],
   "files": [
-    "dist/",
-    "src/"
+    "build/",
+    "bundles/"
   ],
   "repository": {
     "type": "git",
