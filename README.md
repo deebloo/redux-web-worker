@@ -1,6 +1,7 @@
 # redux-worker [![CircleCI](https://circleci.com/gh/deebloo/redux-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-worker)
 
 Redux implementation in a web worker.
+The entire state is kept in a separate thread. (this also gives the added benefit of immutable objects)
 
 ```TS
 import { createStore } from 'redux-worker/core';
