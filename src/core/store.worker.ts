@@ -1,7 +1,7 @@
 import { actions } from './actions';
 
 // create a web worker tailored for state management
-export function createWorker(fn: Function, initialState: any) {
+export function createWorker(fn: Function, initialState: any): Worker {
   // create boilerplate worker
   // store default state
   // manages get state
