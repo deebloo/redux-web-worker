@@ -20,9 +20,10 @@ var Store = (function () {
     // Get the current state of the store
     // uses special reserved action
     Store.prototype.getState = function (fn) {
+        var _this = this;
         this.store.onmessage = function (e) {
             fn(e.data);
-            this.store.onmessage = undefined;
+            _this.store.onmessage = undefined;
         };
         this.store.postMessage({
             type: config_1.actions.GET_STATE

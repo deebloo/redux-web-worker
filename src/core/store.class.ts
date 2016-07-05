@@ -28,7 +28,7 @@ export class Store {
   // Get the current state of the store
   // uses special reserved action
   getState(fn: Function): Store {
-    this.store.onmessage = function (e) {
+    this.store.onmessage = e => {
       fn(e.data);
 
       this.store.onmessage = undefined;

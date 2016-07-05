@@ -7,12 +7,12 @@ export function createWorker(fn: Function, initialState: any) {
   // manages get state
   // assigns reducer
   var blob: Blob = new Blob([`
-    self.state = ${initialState};
+    self.state = ${JSON.stringify(initialState)};
 
     self.reducer = ${fn.toString()};
 
     self.onmessage = function (e) {
-      if (e.data.type !== ${actions.GET_STATE}) {
+      if (e.data.type !== ${JSON.stringify(actions.GET_STATE)}) {
         self.state = self.reducer(self.state, e.data);
       }
 

@@ -1,0 +1,23 @@
+<!DOCTYPE>
+
+<html>
+  <head>
+    <script src="bundles/bundle.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      var store = Rw.createStore(function (state, action) {
+        return state;
+      }, 'Hello World');
+
+      store.subscribe(function (state) {
+        console.log('Subscription: ', state);
+      });
+
+      store.getState(function (state) {
+        console.log('Get State: ', state);
+      });
+    </script>
+  </body>
+</html>
