@@ -2,19 +2,10 @@ import { createStore } from '../src';
 
 describe('Create Store', () => {
   it('should create a store and have an initial state', done => {
-    var store = createStore((state, action) => {
-      switch (action.type) {
-        case 'INCREMENT':
-          return state + 1;
-        case 'DECREMENT':
-          return state - 1;
-        default:
-          return state;
-      }
-    }, 0);
+    var store = createStore((state, action) => {}, 'Hello World');
 
     store.getState(state => {
-      expect(state).toBe(0);
+      expect(state).toBe('Hello World');
 
       done();
     });
