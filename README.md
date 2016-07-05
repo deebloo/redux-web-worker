@@ -1,5 +1,6 @@
-# redux-worker
-Redux implementation in a web worker [![CircleCI](https://circleci.com/gh/deebloo/redux-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-worker)
+# redux-worker [![CircleCI](https://circleci.com/gh/deebloo/redux-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-worker)
+
+Redux implementation in a web worker.
 
 ```TS
 import { createStore } from 'redux-worker/core';
