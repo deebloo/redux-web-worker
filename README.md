@@ -4,6 +4,8 @@ Redux implementation in a web worker.
 
 ```TS
 import { createStore } from 'redux-worker/core';
+// Or if using bundle.
+// var createStore = Rw.createStore;
 
 var store = createStore((state, action) => {
   switch(action.type) {
