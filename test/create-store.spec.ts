@@ -41,4 +41,14 @@ describe('Create Store', () => {
 
     subscription.unsubScribe();
   });
+
+  it('should destory the store', () => {
+    var store = createStore((state, action) => {
+      return state;
+    });
+
+    var subscription = store.subscribe(state => { });
+
+    store.destroy();
+  });
 });
