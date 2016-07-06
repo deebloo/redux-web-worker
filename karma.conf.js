@@ -1,11 +1,11 @@
 module.exports = function (config) {
   config.set({
-    basePath: __dirname,
-    frameworks: ['jasmine'],
+    basePath: '',
+    frameworks: ['jasmine', 'source-map-support'],
 
     files: [
       //'node_modules/es6-promise/dist/es6-promise.js',
-      './test/*.spec.ts'
+      './test/index.ts'
     ],
 
     port: 14523,
@@ -14,28 +14,60 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
 
     preprocessors: {
-      './test/*.spec.ts': ['webpack'],
+      './src/**/.*.ts': ['webpack', 'sourcemap', 'coverage'],
+      './test/index.ts': 'webpack'
     },
 
     webpack: {
+      entry: './test/index.ts',
+      devtool: 'inline-source-map',
       resolve: {
-        root: __dirname,
         extensions: ['', '.ts', '.js']
       },
       module: {
+        postLoaders: [
+          {
+            test: /\.ts$/,
+            exclude: /(test|node_modules)\//,
+            loader: 'istanbul-instrumenter'
+          }
+        ],
         loaders: [
           { test: /\.ts$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ }
         ]
       }
     },
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
-
     browsers: ['PhantomJS'],
 
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage', 'karma-remap-istanbul'],
 
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        {
+          type: 'text-summary'
+        },
+        {
+          type: 'json',
+          subdir: '.',
+          file: 'coverage-final.json'
+        }
+      ]
+    },
+
+    remapIstanbulReporter: {
+      src: 'coverage/coverage-final.json',
+      reports: {
+        lcovonly: 'coverage/lcov.info',
+        html: 'coverage/report'
+      },
+      timeoutNotCreated: 5000,
+      timeoutNoMoreFiles: 1000
+    },
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: true

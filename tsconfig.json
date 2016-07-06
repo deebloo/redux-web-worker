@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs"
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "sourceMap": false,
+    "inlineSourceMap": true
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "resolveGlobs": true,
+    "forkChecker": true
   },
   "exclude": [
     "node_modules"
