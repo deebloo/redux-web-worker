@@ -5,3 +5,4 @@ exports.actions = {
 exports.events = {
     MESSAGE: 'message'
 };
+//# sourceMappingURL=consts.js.map

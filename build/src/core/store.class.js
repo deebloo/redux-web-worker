@@ -46,3 +46,4 @@ var Store = (function () {
     return Store;
 }());
 exports.Store = Store;
+//# sourceMappingURL=store.class.js.map

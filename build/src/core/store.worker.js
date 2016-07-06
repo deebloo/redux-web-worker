@@ -14,3 +14,4 @@ function createWorker(fn, initialState) {
     return worker;
 }
 exports.createWorker = createWorker;
+//# sourceMappingURL=store.worker.js.map

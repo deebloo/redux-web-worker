@@ -25,6 +25,16 @@ module.exports = function (config) {
         extensions: ['', '.ts', '.js']
       },
       module: {
+        loaders: [
+          {
+            test: /\.ts$/,
+            loader: 'awesome-typescript-loader',
+            exclude: /node_modules/,
+            query: {
+              tsconfig: 'tsconfig.test.json'
+            }
+          }
+        ],
         postLoaders: [
           {
             test: /\.ts$/,
@@ -32,9 +42,6 @@ module.exports = function (config) {
             loader: 'istanbul-instrumenter'
           }
         ],
-        loaders: [
-          { test: /\.ts$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ }
-        ]
       }
     },
 

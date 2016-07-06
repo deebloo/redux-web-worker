@@ -4,3 +4,4 @@ function __export(m) {
 }
 __export(require('./store.worker'));
 __export(require('./store.class'));
+//# sourceMappingURL=index.js.map

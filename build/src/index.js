@@ -6,3 +6,4 @@ function createStore(fn, initialState) {
     return new core_1.Store(fn, initialState);
 }
 exports.createStore = createStore;
+//# sourceMappingURL=index.js.map
