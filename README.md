@@ -1,10 +1,14 @@
 # redux-worker [![CircleCI](https://circleci.com/gh/deebloo/redux-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-worker)
 
-Redux implementation in a web worker.
+```
+npm i --save redux-web-worker
+```
+
+Redux implementation in a web worker (experiment).
 The entire state is kept in a separate thread. (this also gives the added benefit of immutable objects)
 
 ```TS
-import { createStore } from 'redux-worker/core';
+import { createStore } from 'redux-web-worker/core';
 // Or if using bundle.
 // var createStore = Rw.createStore;
 
