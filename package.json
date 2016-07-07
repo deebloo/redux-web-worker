@@ -1,5 +1,5 @@
 {
-  "name": "redux-worker",
+  "name": "redux-web-worker",
   "version": "1.0.0",
   "description": "A redux implementation with web workers",
   "main": "build/index.js",

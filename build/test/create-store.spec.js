@@ -32,5 +32,12 @@ describe('Create Store', function () {
         var subscription = store.subscribe(function (state) { });
         subscription.unsubScribe();
     });
+    it('should destory the store', function () {
+        var store = src_1.createStore(function (state, action) {
+            return state;
+        });
+        var subscription = store.subscribe(function (state) { });
+        store.destroy();
+    });
 });
 //# sourceMappingURL=create-store.spec.js.map
