@@ -1,15 +1,14 @@
-"use strict";
-var src_1 = require('../src');
-describe('Create Store', function () {
-    it('should create a store and have an initial state', function (done) {
-        var store = src_1.createStore(function (state, action) { }, 'Hello World');
-        store.getState(function (state) {
+import { createStore } from '../src';
+describe('Create Store', () => {
+    it('should create a store and have an initial state', done => {
+        var store = createStore((state, action) => { }, 'Hello World');
+        store.getState(state => {
             expect(state).toBe('Hello World');
             done();
         });
     });
-    it('should increment state by 1', function (done) {
-        var store = src_1.createStore(function (state, action) {
+    it('should increment state by 1', done => {
+        var store = createStore((state, action) => {
             switch (action.type) {
                 case 'INCREMENT':
                     return state + 1;
@@ -19,24 +18,24 @@ describe('Create Store', function () {
                     return state;
             }
         }, 0);
-        store.subscribe(function (state) {
+        store.subscribe(state => {
             expect(state).toBe(1);
             done();
         });
         store.dispatch({ type: 'INCREMENT' });
     });
-    it('should unsubscribe from store', function () {
-        var store = src_1.createStore(function (state, action) {
+    it('should unsubscribe from store', () => {
+        var store = createStore((state, action) => {
             return state;
         });
-        var subscription = store.subscribe(function (state) { });
+        var subscription = store.subscribe(state => { });
         subscription.unsubScribe();
     });
-    it('should destory the store', function () {
-        var store = src_1.createStore(function (state, action) {
+    it('should destory the store', () => {
+        var store = createStore((state, action) => {
             return state;
         });
-        var subscription = store.subscribe(function (state) { });
+        var subscription = store.subscribe(state => { });
         store.destroy();
     });
 });

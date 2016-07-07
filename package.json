@@ -1,13 +1,13 @@
 {
   "name": "redux-web-worker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A redux implementation with web workers",
   "main": "build/index.js",
   "scripts": {
-    "build": "npm run global-dev && npm run global-min && npm run commonjs",
+    "build": "npm run global-dev && npm run global-min && npm run es2015",
     "global-min": "NODE_ENV=prod webpack",
     "global-dev": "NODE_ENV=dev webpack",
-    "commonjs": "tsc --outDir build/",
+    "es2015": "tsc --outDir build/ --target ES2015 --module ES2015",
     "release": "npm run build && npm publish",
     "test": "karma start",
     "postinstall": "typings install"

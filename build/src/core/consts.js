@@ -1,8 +1,7 @@
-"use strict";
-exports.actions = {
+export const actions = {
     GET_STATE: 'GET_STATE'
 };
-exports.events = {
+export const events = {
     MESSAGE: 'message'
 };
 //# sourceMappingURL=consts.js.map

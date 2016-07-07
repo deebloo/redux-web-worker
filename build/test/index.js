@@ -1,4 +1,2 @@
-"use strict";
-// tests
-require('./create-store.spec');
+import './create-store.spec';
 //# sourceMappingURL=index.js.map
