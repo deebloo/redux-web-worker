@@ -1,4 +1,4 @@
-# redux-worker [![CircleCI](https://circleci.com/gh/deebloo/redux-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-worker)
+# redux-worker [![CircleCI](https://circleci.com/gh/deebloo/redux-web-worker.svg?style=svg)](https://circleci.com/gh/deebloo/redux-web-worker)
 
 ```
 npm i --save redux-web-worker
